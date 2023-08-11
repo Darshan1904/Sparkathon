@@ -1,0 +1,102 @@
+.display-item {
+    background-color: var(--bg);
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Montserrat';
+    margin: 20px auto;
+  }
+  
+  .container {
+    width: 1200px;
+    max-width: 100%;
+    margin: auto;
+  }
+  
+  .display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    .display-item {
+      flex-grow: 1;
+      padding: 15px;
+      > span {
+        display: block;
+        text-align: center;
+        padding: 15px;
+        font-size: 2em;
+      }
+    }
+  }
+  
+  .business-card {
+    width: 550px;
+    height: 300px;
+    max-width: 100%;
+    border-radius: 4px;
+    margin: 0 auto;
+    background:linear-gradient(135deg, #fcdf8a 20%,#f38381 85%);
+    color: rgba(0, 0, 0, .8);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    .profile {
+      display: flex;
+      flex-basis: 150px;
+      width: 100%;
+      border-bottom: 1px solid rgba(0, 0, 0, .2);
+      padding: 15px;
+      box-sizing: border-box;
+      
+      .profile-image {
+        background-image: url(https://images.unsplash.com/photo-1507120878965-54b2d3939100?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&s=57f3676a7820564424855d5e5c6b09e7);
+        background-position: center;
+        background-size: cover;
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
+      }
+      .profile-title {
+        padding-left: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        font-size: 1.4em;
+      }
+    }
+    .info {
+      display: flex;
+      flex-grow: 1;
+      .info-contact {
+        padding: 15px;
+        display: flex;
+        flex-shrink: 1;
+        flex-direction: column;
+        justify-content: space-around;
+        a {
+          color: rgba(0, 0, 0, .8);
+        }
+        i {
+          font-size: 1.2em;
+          width: 25px;
+        }
+      }
+      .info-bio {
+        display: flex;
+        flex-grow: 1;
+        flex-basis: 50%;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 15px;
+        text-align: center;
+      }
+    }
+  }
+
+  .info-bio li{
+      list-style: none;
+      padding: 15px;
+  }
+  
+  .business-card:hover {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  
