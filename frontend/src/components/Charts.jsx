@@ -1,26 +1,78 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react';
+import Chart from 'chart.js/auto'; // Make sure to install 'chart.js' library
 
 const Charts = () => {
-  return (
-    <div className="mt-8 flex flex-wrap space-x-0 space-y-2 md:space-x-4 md:space-y-0">
-        <div className="flex-1 bg-white p-4 shadow rounded-lg md:w-1/2">
-           <h2 className="text-gray-500 text-lg font-semibold pb-1">Usuarios</h2>
-           <div className="my-1"></div>
-           <div className="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
-           <div className="chart-container" style={{ position: 'relative', height: '50vh', width: '100%' }}>
-                <canvas id="usersChart"></canvas>
-           </div>
-       </div>
-        <div className="flex-1 bg-white p-4 shadow rounded-lg md:w-1/2">
-              <h2 className="text-gray-500 text-lg font-semibold pb-1">Comercios</h2>
-              <div className="my-1"></div>
-              <div className="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
-              <div className="chart-container" style={{ position: 'relative', height: '50vh', width: '100%' }}>
-                <canvas id="commercesChart"></canvas>
-              </div>
-        </div>
-    </div>
-  )
-}
+    const chartRef = useRef(null);
+    const chartInstanceRef = useRef(null); // Reference to the chart instance
 
-export default Charts
+    useEffect(() => {
+        if (chartRef.current) {
+            const ctx = chartRef.current.getContext('2d');
+
+            // Destroy the previous chart instance before creating a new one
+            if (chartInstanceRef.current) {
+                chartInstanceRef.current.destroy();
+            }
+
+            chartInstanceRef.current = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+                    datasets: [{
+                        label: 'Data',
+                        data: [10, 20, 15, 30, 25],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(153, 102, 255, 0.8)',
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1,
+                    }],
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false,
+                            },
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    },
+                },
+            });
+        }
+    }, []);
+
+    return (
+        <div className="flex justify-center items-center my-4 bg-gray-100">
+            <div className="w-1/2 bg-white p-6 shadow-lg rounded-sm mx-auto">
+                <h2 className="text-gray-600 text-xl font-semibold mb-4">Last 5 Scores</h2>
+                <div className="chart-container" style={{ height: '300px', width: '100%' }}>
+                    <canvas ref={chartRef}></canvas>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Charts;
