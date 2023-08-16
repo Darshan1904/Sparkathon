@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard';
 
 function App() {
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col font-sans h-max bg-blend-saturation bg-[#F5F6FB]">
       
       <Navbar />
       <Dashboard />
