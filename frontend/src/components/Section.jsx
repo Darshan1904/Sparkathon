@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ProductSection = () => {
+
   return (
     <section className="text-gray-600 body-font bg-white rounded-md w-11/12 mx-auto shadow-sm">
       <div className="container mx-auto">

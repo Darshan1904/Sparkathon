@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto'; // Make sure to install 'chart.js' library
+import { Doughnut, Radar } from 'react-chartjs-2';
+import Chart from 'chart.js/auto'; 
 
 const Charts = () => {
     const chartRef = useRef(null);
@@ -63,13 +64,58 @@ const Charts = () => {
         }
     }, []);
 
+    const data = {
+        labels: ['Score'],
+        datasets: [
+          {
+            data: [70, 30],
+            backgroundColor: ['#6af08c', '#FFFFFF'], 
+          },
+        ],
+      };
+      
+      const options = {
+        maintainAspectRatio: true,
+        cutout: 110,
+        rotation: -90,
+        circumference: 180,
+        Animation: true
+      };
+
+      const data2 = {
+        labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+        datasets: [
+          {
+            label: 'Factors',
+            data: [30, 20, 30, 40, 50],
+            backgroundColor: 'rgba(106, 117, 240, 0.4)',
+            borderColor: '#6A75F0',
+            pointBackgroundColor: '#6A75F0',
+          },
+        ],
+      };
+      
+      const options2 = {
+        scale: {
+          ticks: { beginAtZero: true },
+        },
+      };
+      
+
     return (
-        <div className="flex justify-center items-center my-4 bg-gray-100">
-            <div className="w-1/2 bg-white p-6 shadow-lg rounded-sm mx-auto">
+        <div className="flex justify-center items-center my-4 w-11/12 mx-auto gap-4">
+            <div className=" relative flex-row items-center justify-center h-[390px] py-6 px-3 w-1/4 bg-white shadow-lg rounded-sm mx-auto">
+                <Doughnut data={data} options={options} className='pt-5'/>
+                <p className='absolute auto text-center text-4xl rounded-full text-gray-400 mx-28 p-3 top-1/2'>70</p>
+            </div>
+            <div className="w-2/4 bg-white py-6 px-5 shadow-lg rounded-sm mx-auto">
                 <h2 className="text-gray-600 text-xl font-semibold mb-4">Last 5 Scores</h2>
                 <div className="chart-container" style={{ height: '300px', width: '100%' }}>
                     <canvas ref={chartRef}></canvas>
                 </div>
+            </div>
+            <div className="flex items-center justify-center h-[390px] py-2 px-3 w-1/4 bg-white shadow-lg rounded-sm mx-auto">
+                <Radar data={data2} options={options2} />
             </div>
         </div>
     );
