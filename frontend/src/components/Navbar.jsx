@@ -39,8 +39,8 @@ const Navbar = () => {
         <DialogActions>
           <Button onClick={() => {
             setIsOpen(false);
-          }}>Test</Button>
-          <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }} variant='contained'>Test</Button>
+          <Button onClick={() => setIsOpen(false)} variant='outlined'>Cancel</Button>
         </DialogActions>
       </Dialog>
     </nav>
