@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 } */
+
+.factor-input{
+  margin: 15px;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+  width: 400px !important;
+}
+
+.input-label{
+  font-size: 20px !important;
+  color: rgb(59 130 246 / 0.5) !important;
+}
