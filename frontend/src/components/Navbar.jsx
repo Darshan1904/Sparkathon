@@ -1,34 +1,50 @@
-import React,{useState} from 'react'
-
+import React, { useState } from 'react';
+import { IoAddCircle } from 'react-icons/io5';
+import { Dialog, DialogContent, DialogActions, Button, TextField, InputLabel } from '@mui/material';
 const Navbar = () => {
-  const [sideNavVisible, setSideNavVisible] = useState(false);
-
-  const toggleSideNav = () => {
-    setSideNavVisible(!sideNavVisible);
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [factor1, setFactor1] = useState('');
+  const [factor2, setFactor2] = useState('');
+  const [factor3, setFactor3] = useState('');
   return (
-    <div className="bg-white text-black shadow w-full p-2 flex items-center justify-between">
-        <div className="flex items-center">
-          <div className="flex items-center">
-            <image src="../../public/favicon.ico" alt="Logo" className="w-28 h-18 mr-2" />
-            <h2 className="font-bold text-xl">Nombre de la Aplicación</h2>
-          </div>
-          <div className="md:hidden flex items-center">
-            <button id="menuBtn" onClick={toggleSideNav}>
-              <i className="fas fa-bars text-gray-500 text-lg"></i>
-            </button>
-          </div>
+    <nav className="bg-white text-[#B8BBC9] p-2 flex items-center justify-between my-4 mx-auto rounded-sm w-11/12 shadow-md">
+      <div className="flex items-center relative w-full">
+        <div className="flex items-center w-1/2">
+          <img src={require("../supplyChain.png")} alt="Logo" className="w-8 h-8 mr-2" />
+          <h1 className="text-md text-[#4CA5F4]">VendorVerse</h1>
         </div>
-        <div className="space-x-5">
-          <button>
-            <i className="fas fa-bell text-gray-500 text-lg"></i>
-          </button>
-          <button>
-            <i className="fas fa-user text-gray-500 text-lg"></i>
+        <div className='flex items-end justify-end realtive w-1/2'>
+          <p className="text-[#858688] my-3 mx-4 font-bold">Test Supplier</p>
+          <button className="bg-[#4CA5F4] hover:bg-[#4CA5F4] text-white my-3 mr-4 font-bold rounded-full">
+            <IoAddCircle className="text-2xl" onClick={() => setIsOpen(true)} />
           </button>
         </div>
       </div>
-  )
+
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+        <DialogContent>
+          <div className="factor-input">
+            <InputLabel className = "input-label">Factor1</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factor1} onChange={(e)=>setFactor1(e.target.value)} />
+          </div>
+          <div className="factor-input">
+            <InputLabel className = "input-label">Factor2</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factor2} onChange={(e)=>setFactor2(e.target.value)} />
+          </div>
+          <div className="factor-input">
+            <InputLabel className = "input-label">Factor3</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factor3} onChange={(e)=>setFactor3(e.target.value)} />
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => {
+            setIsOpen(false);
+          }} variant='contained'>Test</Button>
+          <Button onClick={() => setIsOpen(false)} variant='outlined'>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;
