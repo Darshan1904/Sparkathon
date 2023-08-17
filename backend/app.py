@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 import tensorflow as tf 
 import numpy as np 
 from sklearn.preprocessing import StandardScaler
@@ -39,8 +39,10 @@ PredictorScalerFit = joblib.load('./predictor_scaler_fit.pkl')
 def index():
     return render_template('index.html')
 
-@app.route('/api')
+@app.route('/api', methods=['GET', 'POST'])
 def api():
+    # if(request.method=='POST'):
+    print('request received')
     # TargetVarScaler=StandardScaler()
     values = np.array([9,4596,31,4398,642,11])
     

@@ -3,9 +3,29 @@ import { Dialog, DialogContent, DialogActions, Button, TextField, InputLabel } f
 import { useState } from 'react';
 const ProductSection = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [factor1, setFactor1] = useState('');
-  const [factor2, setFactor2] = useState('');
-  const [factor3, setFactor3] = useState('');
+  const [factors, setFactors] = useState({
+     "Quality": 0,
+     "Price" : 0 , 
+      "Distance" : 0,
+      "Orders" : 0,
+      "Sales" : 0,
+      "Benefit" : 0
+  });
+  const handleSubmit =async()=>{
+    // e.preventDefault();
+    console.log(factors);
+    const response = await fetch('/api',{
+      method:"POST",
+
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(factors)
+    });
+
+    const data = await response.json();
+    console.log(data);
+  }
   return (
     <section className="text-gray-600 body-font bg-white rounded-md w-11/12 mx-auto shadow-sm">
       <div className="container mx-auto">
@@ -39,20 +59,41 @@ const ProductSection = () => {
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <DialogContent>
           <div className="factor-input">
-            <InputLabel className = "input-label">Factor1</InputLabel>
-            <TextField id="outlined-basic" variant="outlined" value = {factor1} onChange={(e)=>setFactor1(e.target.value)} />
+            <InputLabel className = "input-label">Quality</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factors.Quality} name="Quality" onChange={(e) => {
+  setFactors({ ...factors, [e.target.name]: e.target.value });
+}}/>
           </div>
           <div className="factor-input">
-            <InputLabel className = "input-label">Factor2</InputLabel>
-            <TextField id="outlined-basic" variant="outlined" value = {factor2} onChange={(e)=>setFactor2(e.target.value)} />
+            <InputLabel className = "input-label">Price</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factors.Price} name="Price" onChange={(e) => {
+  setFactors({ ...factors, [e.target.name]: e.target.value });
+}}/>
           </div>
           <div className="factor-input">
-            <InputLabel className = "input-label">Factor3</InputLabel>
-            <TextField id="outlined-basic" variant="outlined" value = {factor3} onChange={(e)=>setFactor3(e.target.value)} />
+            <InputLabel className = "input-label">Distance</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factors.Distance} name="Distance" onChange={(e)=>setFactors({...factors, [e.target.name]:e.target.value})} />
+          </div>
+          <div className="factor-input">
+            <InputLabel className = "input-label">Orders</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factors.Orders} name="Orders" onChange={(e) => {
+  setFactors({ ...factors, [e.target.name]: e.target.value });
+}}/>
+          </div>
+          <div className="factor-input">
+            <InputLabel className = "input-label">Sales</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factors.Sales} name="Sales" onChange={(e) => {
+  setFactors({ ...factors, [e.target.name]: e.target.value });
+}}/>
+          </div>
+          <div className="factor-input">
+            <InputLabel className = "input-label">Benefits per Order</InputLabel>
+            <TextField id="outlined-basic" variant="outlined" value = {factors.Benefit} name="Benefit" onChange={(e)=>setFactors({...factors, [e.target.name]:e.target.value})} />
           </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => {
+            handleSubmit();
             setIsOpen(false);
           }} variant='contained'>Test</Button>
           <Button onClick={() => setIsOpen(false)} variant='outlined'>Cancel</Button>
