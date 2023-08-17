@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import factorContext from '../context/factorContext'
 
 const List = () => {
+  const {names} = useContext(factorContext);
   return (
     <div className="mb-4 shadow-lg bg-white p-4 rounded-sm w-11/12 mx-auto">
             <h2 className="text-gray-500 text-lg font-semibold pb-4">Scores</h2>
@@ -15,12 +17,13 @@ const List = () => {
                 </tr>
               </thead>
               <tbody>
-              <tr className="text-sm leading-normal">
-                  <th className="py-2 px-4 bg-grey-lightest text-sm text-gray-400 border-b border-grey-light">1</th>
-                  <th className="py-2 px-4 bg-grey-lightest text-sm text-gray-400 border-b border-grey-light">HP</th>
-                  <th className="py-2 px-4 bg-grey-lightest text-sm text-gray-400 border-b border-grey-light">9/10</th>
+              {names.map((item, index) => index>=1 && (
+                <tr className="text-sm leading-normal" key={index}>
+                  <th className="py-2 px-4 bg-grey-lightest text-sm text-gray-400 border-b border-grey-light">{index}</th>
+                  <th className="py-2 px-4 bg-grey-lightest text-sm text-gray-400 border-b border-grey-light">{item.name}</th>
+                  <th className="py-2 px-4 bg-grey-lightest text-sm text-gray-400 border-b border-grey-light">{item.score}</th>
                 </tr>
-                {/* Add more rows */}
+              ))}
               </tbody>
             </table>
     </div>

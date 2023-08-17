@@ -1,16 +1,12 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Dialog, DialogContent, DialogActions, Button, TextField, InputLabel } from '@mui/material';
 import { useState } from 'react';
+import factorContext from '../context/factorContext';
+
 const ProductSection = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [factors, setFactors] = useState({
-     "Quality": 0,
-     "Price" : 0 , 
-      "Distance" : 0,
-      "Orders" : 0,
-      "Sales" : 0,
-      "Benefit" : 0
-  });
+  const [curr, setCurr] = useState("")
+  const {factors, setFactors, setResult, names, setNames} = useContext(factorContext);
   const handleSubmit =async()=>{
     // e.preventDefault();
     console.log(factors);
@@ -23,8 +19,10 @@ const ProductSection = () => {
       body: JSON.stringify(factors)
     });
 
-    const data = await response.json();
-    console.log(data);
+    let data = await response.json();
+    setResult(data.predictions[0][0]);
+
+    setNames([ ...names, {name: curr, score: Math.ceil(data.predictions[0][0])} ]);
   }
   return (
     <section className="text-gray-600 body-font bg-white rounded-md w-11/12 mx-auto shadow-sm">
@@ -58,6 +56,12 @@ const ProductSection = () => {
 
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <DialogContent>
+          <div className="factor-input">
+              <InputLabel className = "input-label">Supplier</InputLabel>
+              <TextField id="outlined-basic" variant="outlined" name="Quality" onChange={(e) => {
+         setCurr(e.target.value);
+      }}/>
+          </div>
           <div className="factor-input">
             <InputLabel className = "input-label">Quality</InputLabel>
             <TextField id="outlined-basic" variant="outlined" value = {factors.Quality} name="Quality" onChange={(e) => {
