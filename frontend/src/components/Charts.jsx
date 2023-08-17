@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { Doughnut, Radar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto'; 
+import factorContext from '../context/factorContext';
 
 const Charts = () => {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null); // Reference to the chart instance
+    const {factors, result} = useContext(factorContext);
 
     useEffect(() => {
         if (chartRef.current) {
@@ -18,16 +20,17 @@ const Charts = () => {
             chartInstanceRef.current = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+                    labels: ['Quality', 'Price', 'Distance', 'Orders', 'Sales', 'Profit'],
                     datasets: [{
                         label: 'Data',
-                        data: [10, 20, 15, 30, 25],
+                        data: [factors.Quality, factors.Price/50, factors.Distance, factors.Orders/100, factors.Sales/10, factors.Benefit],
                         backgroundColor: [
                             'rgba(75, 192, 192, 0.8)',
                             'rgba(54, 162, 235, 0.8)',
                             'rgba(255, 206, 86, 0.8)',
                             'rgba(255, 99, 132, 0.8)',
                             'rgba(153, 102, 255, 0.8)',
+                            'rgba(255, 100, 80, 0.8)'
                         ],
                         borderColor: [
                             'rgba(75, 192, 192, 1)',
@@ -35,6 +38,7 @@ const Charts = () => {
                             'rgba(255, 206, 86, 1)',
                             'rgba(255, 99, 132, 1)',
                             'rgba(153, 102, 255, 1)',
+                            'rgba(255, 100, 80, 1)'
                         ],
                         borderWidth: 1,
                     }],
@@ -44,13 +48,13 @@ const Charts = () => {
                         x: {
                             beginAtZero: true,
                             grid: {
-                                display: false,
+                                display: true,
                             },
                         },
                         y: {
                             beginAtZero: true,
                             grid: {
-                                display: false,
+                                display: true,
                             },
                         },
                     },
@@ -62,13 +66,13 @@ const Charts = () => {
                 },
             });
         }
-    }, []);
+    }, [factors.Benefit, factors.Distance, factors.Orders, factors.Price, factors.Quality, factors.Sales]);
 
     const data = {
         labels: ['Score'],
         datasets: [
           {
-            data: [70, 30],
+            data: [Math.ceil(result)*10, 10-result],
             backgroundColor: ['#6af08c', '#FFFFFF'], 
           },
         ],
@@ -83,11 +87,11 @@ const Charts = () => {
       };
 
       const data2 = {
-        labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+        labels: ['Score', 'Quality', 'Price', 'Distance', 'Orders', 'Sales', 'Profit'],
         datasets: [
           {
-            label: 'Factors',
-            data: [30, 20, 30, 40, 50],
+            label: 'Graph',
+            data: [result, factors.Quality, factors.Price/50, factors.Distance, factors.Orders/100, factors.Sales/10, factors.Benefit],
             backgroundColor: 'rgba(106, 117, 240, 0.4)',
             borderColor: '#6A75F0',
             pointBackgroundColor: '#6A75F0',
@@ -106,10 +110,10 @@ const Charts = () => {
         <div className="flex justify-center items-center my-4 w-11/12 mx-auto gap-4">
             <div className=" relative flex-row items-center justify-center h-[390px] py-6 px-3 w-1/4 bg-white shadow-lg rounded-sm mx-auto">
                 <Doughnut data={data} options={options} className='pt-5'/>
-                <p className='absolute auto text-center text-4xl rounded-full text-gray-400 mx-28 p-3 top-1/2'>70</p>
+                <p className='absolute auto text-center text-4xl rounded-full text-gray-400 mx-28 p-3 top-1/2'>{Math.ceil(result)}</p>
             </div>
             <div className="w-2/4 bg-white py-6 px-5 shadow-lg rounded-sm mx-auto">
-                <h2 className="text-gray-600 text-xl font-semibold mb-4">Last 5 Scores</h2>
+                <h2 className="text-gray-600 text-xl font-semibold mb-4">Factors</h2>
                 <div className="chart-container" style={{ height: '300px', width: '100%' }}>
                     <canvas ref={chartRef}></canvas>
                 </div>
