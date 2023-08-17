@@ -6,7 +6,7 @@ import factorContext from '../context/factorContext';
 const ProductSection = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [curr, setCurr] = useState("")
-  const {factors, setFactors, setResult, names, setNames} = useContext(factorContext);
+  const {factors, setFactors, result, setResult, names, setNames} = useContext(factorContext);
   const handleSubmit =async()=>{
     // e.preventDefault();
     console.log(factors);
@@ -20,9 +20,10 @@ const ProductSection = () => {
     });
 
     let data = await response.json();
-    setResult(data.predictions[0][0]);
+    setResult(data.predictions[0][0].toFixed(2));
+    console.log(result);
 
-    setNames([ ...names, {name: curr, score: Math.ceil(data.predictions[0][0])} ]);
+    setNames([ ...names, {name: curr, score: data.predictions[0][0].toFixed(2)} ]);
   }
   return (
     <section className="text-gray-600 body-font bg-white rounded-md w-11/12 mx-auto shadow-sm">

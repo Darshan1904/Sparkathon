@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { IoAddCircle } from 'react-icons/io5';
 import { Dialog, DialogContent, DialogActions, Button, TextField, InputLabel } from '@mui/material';
+import factorContext from '../context/factorContext';
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [factors, setFactors] = useState({
-    "Quality": 0,
-    "Price" : 0 , 
-     "Distance" : 0,
-     "Orders" : 0,
-     "Sales" : 0,
-     "Benefit" : 0
- });
- const handleSubmit = async()=>{
-   // e.preventDefault();
-   console.log(factors);
+  const [curr, setCurr] = useState("")
+  const {factors, setFactors, setResult, names, setNames} = useContext(factorContext);
+  const handleSubmit =async()=>{
+    // e.preventDefault();
+    console.log(factors);
     const response = await fetch('/api',{
       method:"POST",
 
@@ -23,9 +19,11 @@ const Navbar = () => {
       body: JSON.stringify(factors)
     });
 
-    const data = await response.json();
-    console.log(data);
- }
+    let data = await response.json();
+    setResult(data.predictions[0][0].toFixed(2));
+
+    setNames([ ...names, {name: curr, score:data.predictions[0][0].toFixed(2)} ]);
+  }
   return (
     <nav className="bg-white text-[#B8BBC9] p-2 flex items-center justify-between my-4 mx-auto rounded-sm w-11/12 shadow-md">
       <div className="flex items-center relative w-full">
@@ -43,6 +41,12 @@ const Navbar = () => {
 
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <DialogContent>
+        <div className="factor-input">
+              <InputLabel className = "input-label">Supplier</InputLabel>
+              <TextField id="outlined-basic" variant="outlined" name="Quality" onChange={(e) => {
+         setCurr(e.target.value);
+      }}/>
+          </div>
         <div className="factor-input">
             <InputLabel className = "input-label">Quality</InputLabel>
             <TextField id="outlined-basic" variant="outlined" value = {factors.Quality} name="Quality" onChange={(e) => {
@@ -86,6 +90,7 @@ const Navbar = () => {
       </Dialog>
     </nav>
   );
+
 }
 
 export default Navbar;

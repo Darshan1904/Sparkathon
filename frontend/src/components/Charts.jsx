@@ -23,7 +23,7 @@ const Charts = () => {
                     labels: ['Quality', 'Price', 'Distance', 'Orders', 'Sales', 'Profit'],
                     datasets: [{
                         label: 'Data',
-                        data: [factors.Quality, factors.Price/50, factors.Distance, factors.Orders/100, factors.Sales/10, factors.Benefit],
+                        data: [factors.Quality, factors.Price/500, factors.Distance/5, factors.Orders/1000, factors.Sales/100, factors.Benefit/2],
                         backgroundColor: [
                             'rgba(75, 192, 192, 0.8)',
                             'rgba(54, 162, 235, 0.8)',
@@ -72,7 +72,7 @@ const Charts = () => {
         labels: ['Score'],
         datasets: [
           {
-            data: [Math.ceil(result)*10, 10-result],
+            data: [result*10, 10-result],
             backgroundColor: ['#6af08c', '#FFFFFF'], 
           },
         ],
@@ -110,7 +110,7 @@ const Charts = () => {
         <div className="flex justify-center items-center my-4 w-11/12 mx-auto gap-4">
             <div className=" relative flex-row items-center justify-center h-[390px] py-6 px-3 w-1/4 bg-white shadow-lg rounded-sm mx-auto">
                 <Doughnut data={data} options={options} className='pt-5'/>
-                <p className='absolute auto text-center text-4xl rounded-full text-gray-400 mx-28 p-3 top-1/2'>{Math.ceil(result)}</p>
+                <p className='absolute auto text-center text-4xl rounded-full text-gray-400 mx-28 p-3 top-1/2'>{result}</p>
             </div>
             <div className="w-2/4 bg-white py-6 px-5 shadow-lg rounded-sm mx-auto">
                 <h2 className="text-gray-600 text-xl font-semibold mb-4">Factors</h2>
