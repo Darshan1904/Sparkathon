@@ -1,8 +1,9 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,jsonify
 import tensorflow as tf 
 import numpy as np 
 from sklearn.preprocessing import StandardScaler
 import joblib
+import json 
 
 
 # Load the saved PredictorScalerFit object
@@ -42,9 +43,21 @@ def index():
 @app.route('/api', methods=['GET', 'POST'])
 def api():
     # if(request.method=='POST'):
-    print('request received')
+    payload = request.data.decode('utf-8')  # Decoding the bytes payload to string
+    arguments = json.loads(payload)  # Parse the JSON string into a dictionary
+        
+    print(arguments)  # This will print the dictionary containing the extracted values
+        
+        # Extract values from the dictionary
+    quality = int(arguments.get("Quality", 0))
+    price = int(arguments.get("Price", 0))
+    distance = int(arguments.get("Distance", 0))
+    orders = int(arguments.get("Orders", 0))
+    sales = int(arguments.get("Sales", 0))
+    benefit = int(arguments.get("Benefit", 0))
+    
     # TargetVarScaler=StandardScaler()
-    values = np.array([9,4596,31,4398,642,11])
+    values = np.array([quality,price,distance,orders,sales,benefit])
     
     values_standardized = PredictorScalerFit.transform(values.reshape((1,6)))
     # print(values_standardized)
@@ -54,8 +67,11 @@ def api():
     
     # predictions = model.predict(values)
     predictions = TargetVarScalerFit.inverse_transform(predictions)
-    print(predictions)
-    return {'message': 1}
+    response_data = {'message': 'request received', 'predictions': predictions.tolist()}
+        
+        # Return the dictionary as JSON response
+    return jsonify(response_data)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
