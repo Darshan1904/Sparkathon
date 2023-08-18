@@ -1,6 +1,7 @@
 flask
 tensorflow
 numpy
-sklearn.preprocessing
+sklearn
+gunicorn
 joblib
 json
