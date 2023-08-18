@@ -91,7 +91,7 @@ const Charts = () => {
         datasets: [
           {
             label: 'Graph',
-            data: [result, factors.Quality, factors.Price/50, factors.Distance, factors.Orders/100, factors.Sales/10, factors.Benefit],
+            data: [result, factors.Quality, factors.Price/500, factors.Distance/5, factors.Orders/1000, factors.Sales/100, factors.Benefit/2],
             backgroundColor: 'rgba(106, 117, 240, 0.4)',
             borderColor: '#6A75F0',
             pointBackgroundColor: '#6A75F0',
