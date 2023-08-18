@@ -5,13 +5,6 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 import json 
 
-
-# Load the saved PredictorScalerFit object
-
-
-# Now you can use PredictorScalerFit to transform new data
-
-
 app = Flask(__name__)
 model = tf.keras.models.load_model('./spark.h5')
 

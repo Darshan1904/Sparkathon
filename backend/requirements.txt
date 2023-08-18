@@ -1,0 +1,6 @@
+flask
+tensorflow
+numpy
+sklearn.preprocessing
+joblib
+json
