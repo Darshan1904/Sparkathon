@@ -19,7 +19,7 @@ In the realm of procurement and supply chain management, selecting the right sup
 
 ## Features
 
-- **Factor-Based Evaluation:** Vendorverse enables you to assess suppliers using a flexible set of factors tailored to your needs.
+- **Factor-Based Evaluation:** Vendorverse enables you to assess suppliers using a set of factors.
 - **Advanced Scoring Algorithm:** Our sophisticated algorithm calculates scores based on factor ratings, providing an unbiased comparison.
 - **User-Centric Interface:** The user-friendly web interface allows easy data input and score retrieval.
 - **Visual Data Analysis:** Visualize supplier performance through interactive charts and graphs.
